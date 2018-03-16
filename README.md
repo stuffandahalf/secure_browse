@@ -1,2 +1,2 @@
 # secure_browse
-enables network interfaces while a browser is open
+Enables network interfaces while a browser is open.
