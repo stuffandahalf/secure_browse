@@ -1,8 +1,11 @@
-extern crate pnet;
+extern crate interfaces;
 
-use pnet::datalink::{self, NetworkInterface};
-use std::process::{Child, Command};
+use interfaces::Interface;
 
+#[cfg(target_os = "windows")]
+const BROWSER: &str = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+
+#[cfg(target_os = "unix")]
 const BROWSER: &str = "firefox";
 
 
@@ -15,10 +18,23 @@ fn main() {
         },
         Err(err) => println!("{}", err),
     }
-    iface_down();
+    //iface_down();
 }
 
 fn iface_up() {
+    println!("Bring interfaces up");
+    //let interfaces = Interface::get_all();
+    match Interface::get_all() {
+        Some(interfaces) => {
+            for ref iface in &interfaces {
+                println!("{:?}", iface);
+            }
+        },
+        None => println!("No interfaces detected");
+    }
+}
+
+/*fn iface_up() {
     println!("Bringing interfaces up");
     let interfaces = datalink::interfaces();
     for ref iface in &interfaces {
@@ -31,9 +47,9 @@ fn iface_up() {
         }
         //println!("{} is up? {}", iface.name, iface.is_up());
     }
-}
+}*/
 
-fn iface_down() {
+/*fn iface_down() {
     println!("Bringing interfaces down");
     let interfaces = datalink::interfaces();
     for ref iface in &interfaces {
@@ -47,4 +63,4 @@ fn iface_down() {
         }
         //println!("{} is up? {}", iface.name, iface.is_up());
     }
-}
+}*/
