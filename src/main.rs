@@ -9,6 +9,7 @@
 use std::process::Command;
 
 fn main() {
+    #[cfg(debug_assertions)]
     print_ifaces();
     iface_up();
     launch_browser();
@@ -30,7 +31,7 @@ fn launch_browser() {
             #[cfg(not(debug_assertions))]
             child.wait();
             
-            //#[cfg(debug_assertions)]
+            #[cfg(debug_assertions)]
             println!("Browser Exited");
         },
         Err(err) => println!("{}", err),
@@ -38,6 +39,7 @@ fn launch_browser() {
 }
 
 fn iface_up() {
+    #[cfg(debug_assertions)]
     println!("Bring interfaces up");
     //let interfaces = Interface::get_all();
     match Interface::get_all() {
@@ -55,6 +57,7 @@ fn iface_up() {
 }
 
 fn iface_down() {
+    #[cfg(debug_assertions)]
     println!("Bring interfaces down");
     match Interface::get_all() {
         Ok(mut interfaces) => {
@@ -71,6 +74,7 @@ fn iface_down() {
 }
 
 fn print_ifaces() {
+    #[cfg(debug_assertions)]
     println!("All available network interfaces");
     match Interface::get_all() {
         Ok(interfaces) => {
