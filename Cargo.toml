@@ -4,4 +4,7 @@ version = "0.1.0"
 authors = ["Gregory Norton <gregory.norton@me.com>"]
 
 [dependencies]
+[target.'cfg(not(windows))'.dependencies]
 interfaces = "0.0.4"
+#interfaces = { git = 'https://github.com/andrew-d/interfaces-rs' }
+#interfaces = { path = "../interfaces-rs" }
