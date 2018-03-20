@@ -1,92 +1,6 @@
-use std::fmt;
 use std::str;
 use std::string::String;
 use std::process::Command;
-
-/*pub enum Kind {
-    Ipv4,
-    Ipv6,
-    Link,
-    Unknown(i32),
-    Packet,
-}
-
-impl fmt::Display for Kind {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            Kind::Ipv4 => write!(f, "IPv4"),
-            Kind::Ipv6 => write!(f, "IPv6"),
-            Kind::Link => write!(f, "Link"),
-            Kind::Unknown(v) => write!(f, "Unknown({})", v),
-            Kind::Packet => write!(f, "Packet"),
-        }
-    }
-}
-
-#[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
-pub struct HardwareAddr([u8; 6]);
-
-impl HardwareAddr {
-    /// Returns a new, empty `HardwareAddr` structure.  This is equivalent to the MAC address
-    /// `00:00:00:00:00:00`.
-    pub fn zero() -> HardwareAddr {
-        HardwareAddr([0; 6])
-    }
-
-    /// Formats this hardware address in the standard MAC address format - 6 octets in hexadecimal
-    /// format, each seperated by a colon.
-    ///
-    /// ```
-    /// # use interfaces::HardwareAddr;
-    /// let s = HardwareAddr::zero().as_string();
-    /// assert_eq!(s, "00:00:00:00:00:00");
-    /// ```
-    pub fn as_string(&self) -> String {
-        let &HardwareAddr(ref arr) = self;
-
-        format!("{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
-            arr[0],
-            arr[1],
-            arr[2],
-            arr[3],
-            arr[4],
-            arr[5],
-        )
-    }
-
-    /// Formats this hardware address as a sequence of hexadecimal numbers without the seperating
-    /// colons.
-    ///
-    /// ```
-    /// # use interfaces::HardwareAddr;
-    /// let s = HardwareAddr::zero().as_bare_string();
-    /// assert_eq!(s, "000000000000");
-    /// ```
-    pub fn as_bare_string(&self) -> String {
-        let &HardwareAddr(ref arr) = self;
-
-        format!("{:02x}{:02x}{:02x}{:02x}{:02x}{:02x}",
-            arr[0],
-            arr[1],
-            arr[2],
-            arr[3],
-            arr[4],
-            arr[5],
-        )
-    }
-
-    /// Returns the raw bytes representing this hardware address.
-    ///
-    /// ```
-    /// # use interfaces::HardwareAddr;
-    /// let s = HardwareAddr::zero();
-    /// assert_eq!(s.as_bytes(), &[0, 0, 0, 0, 0, 0]);
-    /// ```
-    pub fn as_bytes(&self) -> &[u8] {
-        let &HardwareAddr(ref arr) = self;
-        arr
-    }
-}*/
 
 #[derive(Debug)]
 pub struct Interface {
@@ -145,7 +59,7 @@ impl Interface {
     pub fn set_up(&mut self, up: bool) -> Result<(), ()> {
         #[cfg(debug_assertions)]
         println!("Running set_up on interface {}", self.name);
-        if self.state != up {
+        if !self.is_up() {
             let command_state = match up {
                 true => "enable",
                 false => "disable",
@@ -155,10 +69,10 @@ impl Interface {
             println!("Command run: {}", command);
             
             match Command::new("cmd").args(&["/C", &command]).output() {
-                Ok(output) => {
+                Ok(_output) => {
                     #[cfg(debug_assertions)]
                     {
-                        let out_str = str::from_utf8(&output.stdout).unwrap();
+                        let out_str = str::from_utf8(&_output.stdout).unwrap();
                         print!("CMD returned: {}", out_str);
                     }
                     self.state = up;
