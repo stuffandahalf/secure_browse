@@ -104,8 +104,9 @@ fn iface_down() {
     }
 }
 
+
+#[cfg(debug_assertions)]
 fn print_ifaces() {
-    #[cfg(debug_assertions)]
     println!("All available network interfaces");
     match Interface::get_all() {
         Ok(interfaces) => {
