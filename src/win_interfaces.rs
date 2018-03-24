@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 use std::str;
 use std::string::String;
 use std::process::Command;
@@ -32,11 +34,13 @@ impl Interface {
                     }
                     iface_name.pop();
                     
-                    let iface_state = if device_props[0] == "Enabled" {
+                    /*let iface_state = if device_props[0] == "Enabled" {
                         true
                     } else {
                         false
-                    };
+                    };*/
+                    
+                    let iface_state = device_props[0] == "Enabled";
                     
                     let new_iface = Interface { 
                         name: iface_name,
@@ -59,7 +63,7 @@ impl Interface {
     pub fn set_up(&mut self, up: bool) -> Result<(), ()> {
         #[cfg(debug_assertions)]
         println!("Running set_up on interface {}", self.name);
-        if !self.is_up() {
+        if self.is_up() != up {
             let command_state = match up {
                 true => "enable",
                 false => "disable",

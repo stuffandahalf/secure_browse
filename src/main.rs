@@ -1,3 +1,6 @@
+//#![windows_subsystem = "windows"]
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
 #[macro_use] extern crate lazy_static;
 
 #[cfg(not(windows))] extern crate interfaces;
