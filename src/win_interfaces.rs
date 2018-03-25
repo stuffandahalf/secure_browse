@@ -34,12 +34,6 @@ impl Interface {
                     }
                     iface_name.pop();
                     
-                    /*let iface_state = if device_props[0] == "Enabled" {
-                        true
-                    } else {
-                        false
-                    };*/
-                    
                     let iface_state = device_props[0] == "Enabled";
                     
                     let new_iface = Interface { 
