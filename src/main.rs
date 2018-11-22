@@ -5,14 +5,12 @@
 
 #[cfg(not(windows))] extern crate interfaces;
 #[cfg(not(windows))] use interfaces::Interface;
-//#[cfg(not(windows))] const BROWSER: &str = "firefox";
 
 #[cfg(windows)] extern crate winreg;
 #[cfg(windows)] use winreg::RegKey;
 #[cfg(windows)] use winreg::enums::*;
 #[cfg(windows)] mod win_interfaces;
 #[cfg(windows)] use win_interfaces::Interface;
-//#[cfg(windows)] const BROWSER: &str = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
 
 use std::process::Command;
 use std::string::String;
