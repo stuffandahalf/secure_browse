@@ -17,8 +17,8 @@ impl Interface {
         let mut ifaces: Vec<Interface> = Vec::new();
         //let output = Command::new("cmd").args(&["/C", "netsh interface show interface"]).output();
         //println!("{:?}", output);
-        //match Command::new("cmd").args(&["/C", "netsh interface show interface"]).output() {
-        match Command::new("netsh").args(&["interface", "show", "interface"]).output() {
+        match Command::new("cmd").args(&["/C", "netsh interface show interface"]).output() {
+        //match Command::new("netsh").args(&["interface", "show", "interface"]).output() {
         //match Command::new("start").args(&["", "/MIN", "netsh", "interface", "show", "interface"]).output() {
             Ok(output) => {
                 let out_str = str::from_utf8(&output.stdout).unwrap();
@@ -64,11 +64,11 @@ impl Interface {
                 true => "enable",
                 false => "disable",
             };
-            /*let command = format!("netsh interface set interface \"{}\" admin={}", self.name, command_state);
+            let command = format!("netsh interface set interface \"{}\" admin={}", self.name, command_state);
             #[cfg(debug_assertions)]
-            println!("Command run: {}", command);*/
+            println!("Command run: {}", command);
             
-            /*match Command::new("cmd").args(&["/C", &command]).output() {
+            match Command::new("cmd").args(&["/C", &command]).output() {
                 Ok(_output) => {
                     #[cfg(debug_assertions)]
                     {
@@ -78,12 +78,12 @@ impl Interface {
                     self.state = up;
                 },
                 Err(err) => println!("{}", err),
-            }*/
+            }
             
-            let _output = Command::new("netsh")
+            /*let _output = Command::new("netsh")
                                   .args(&["interface", "set", "interface", &format!("\"{}\"", self.name), &format!("admin={}", command_state)])
                                   .output()
-                                  .expect("Failed to disable interface");
+                                  .expect("Failed to disable interface");*/
             
             /*Command::new("cmd")
                     .args(&["/C", &command])

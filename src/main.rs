@@ -30,7 +30,7 @@ fn main() {
     print_ifaces();
     iface_up();
     launch_browser();
-    #[cfg(not(debug_assertions))]
+    //#[cfg(not(debug_assertions))]
     iface_down();
 }
 
