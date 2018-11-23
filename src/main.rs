@@ -15,16 +15,22 @@
 use std::process::Command;
 use std::string::String;
 
+use std::str;
+
 lazy_static! {
     static ref BROWSER: String = get_browser();
 }
 
 fn main() {
+    /*match Command::new("start").args(&["\"\"", "/MIN", "powershell -windowstyle hidden { echo Hello World }"]).spawn().expect("Failed to spawn").wait_with_output() {
+        Ok(output) => println!("{}", str::from_utf8(&output.stdout).unwrap()),
+        Err(err) => println!("{}", err)
+    }*/
     #[cfg(debug_assertions)]
     print_ifaces();
     iface_up();
     launch_browser();
-    //#[cfg(not(debug_assertions))]
+    #[cfg(not(debug_assertions))]
     iface_down();
 }
 

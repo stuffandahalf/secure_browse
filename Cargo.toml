@@ -4,6 +4,11 @@ version = "0.3.0"
 authors = ["Gregory Norton <gregory.norton@me.com>"]
 build = "build.rs"
 
+[package.metadata.winres]
+ProductName = "Secure Browsing"
+OriginalFilename = "secure_browse.exe"
+LegalCopyright = "© 2018 Soltrest Inc."
+
 #[build-dependencies]
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1.5"
